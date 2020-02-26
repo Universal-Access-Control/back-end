@@ -1,0 +1,19 @@
+{
+  "name": "access-control",
+  "version": "0.1.0",
+  "description": "",
+  "license": "MIT",
+  "homepage": "https://github.com/Universal-Access-Control/back-end#readme",
+  "author": "Mohammad Moradi <mohammad.moradi9375@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Universal-Access-Control/back-end.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Universal-Access-Control/back-end/issues"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
