@@ -46,10 +46,12 @@ MqttClient.prototype.start = function() {
       const params = route.url.match(topic);
 
       if (params) {
-        route.handler(topic, message, params, this.client);
+        route.handler(message, params, this.client);
       }
     });
   });
+  debug('MQTT client started successfully!');
 };
+const mqttClient = new MqttClient();
 
-module.exports = MqttClient;
+module.exports = mqttClient;

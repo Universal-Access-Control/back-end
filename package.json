@@ -21,6 +21,7 @@
     "await-to-js": "^2.1.1",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
-    "houkou": "^0.2.2"
+    "houkou": "^0.2.2",
+    "mongoose": "^5.9.5"
   }
 }
