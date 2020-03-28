@@ -2,7 +2,7 @@ const to = require('await-to-js').default;
 
 const MqttRouter = require('../services/router');
 const mqttClient = require('../services/client');
-const DeviceModel = require('../models/device');
+const DeviceModel = require('../../models/device');
 
 const authRouter = new MqttRouter();
 
