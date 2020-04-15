@@ -37,7 +37,7 @@ MqttClient.prototype.connect = async function (): Promise<void> {
   }
 
   this.client = client;
-  log('Connected to broker!');
+  log('✅  Connected to broker!');
 };
 
 MqttClient.prototype.useRouter = function (this: MqttClient, router: Router): void {
@@ -63,7 +63,7 @@ MqttClient.prototype.start = function (this: MqttClient): void {
       }
     });
   });
-  log('MQTT client started successfully!');
+  log('✅  MQTT client started successfully!');
 };
 
 const mqttClient = new MqttClient();

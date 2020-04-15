@@ -8,5 +8,6 @@ declare namespace NodeJS {
     MQTT_USERNAME?: string;
     MQTT_PASSWORD?: string;
     MONGODB_URL: string;
+    MONGODB_DB_NAME: string;
   }
 }

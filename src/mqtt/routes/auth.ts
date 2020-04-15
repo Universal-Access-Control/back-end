@@ -1,7 +1,7 @@
 import to from 'await-to-js';
 import MqttRouter from '../services/router';
 import mqttClient from '../services/client';
-import DeviceModel from '../../models/device';
+import { DeviceModel } from '../../models/device';
 
 const authRouter = new MqttRouter();
 
