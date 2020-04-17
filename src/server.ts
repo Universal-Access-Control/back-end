@@ -10,10 +10,9 @@ import './graphql/graphql-app';
 
   log('Connecting to database...');
   const dbOptions = { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true };
-  const dbBaseUrl = process.env.MONGODB_URL;
-  const dbName = process.env.MONGODB_DB_NAME;
+  const dbUrl = process.env.MONGODB_URL;
 
-  const [err] = await to(mongoose.connect(`${dbBaseUrl}/${dbName}`, dbOptions));
+  const [err] = await to(mongoose.connect(dbUrl, dbOptions));
   if (err) {
     log('Database connection error: %s', err);
     process.exit(1);
