@@ -21,10 +21,10 @@ const MqttClient = (function (this: MqttClient): void {
 } as unknown) as { new (): MqttClient };
 
 MqttClient.prototype.connect = async function (): Promise<void> {
-  const mqttUrl = process.env.MQTT_URL;
-  const mqttPort = parseInt(process.env.MQTT_PORT);
+  const mqttUrl = process.env.MQTT_URL!;
+  const mqttPort = parseInt(process.env.MQTT_PORT!);
   const options: IClientOptions = {
-    clientId: process.env.MQTT_CLIENT_ID,
+    clientId: process.env.MQTT_CLIENT_ID!,
     username: process.env.MQTT_USERNAME,
     password: process.env.MQTT_PASSWORD,
   };
