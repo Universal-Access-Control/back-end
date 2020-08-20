@@ -1,6 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
-import { prop, getModelForClass, arrayProp, Ref, plugin } from '@typegoose/typegoose';
+import { prop, getModelForClass, Ref, plugin } from '@typegoose/typegoose';
 import uniqueValidator from 'mongoose-unique-validator';
+
 import { Device } from './device';
 import { Errors } from '../errors';
 
@@ -19,7 +20,7 @@ export class User {
   password!: string;
 
   @Field(() => [Device])
-  @arrayProp({ ref: 'Device' })
+  @prop({ ref: Device })
   devices?: Ref<Device>[];
 }
 
