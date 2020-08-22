@@ -1,6 +1,9 @@
 declare namespace NodeJS {
   export interface ProcessEnv {
     NODE_ENV: 'development' | 'production' | 'test';
+    GRAPHQL_PORT: string;
+    CORS_ORIGIN: string;
+    SESSION_SECRET: string;
     DEBUG: string;
     MQTT_URL: string;
     MQTT_PORT: string;

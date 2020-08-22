@@ -1,45 +1,31 @@
-import { GraphQLFormattedError } from 'graphql';
+import { ApolloError, AuthenticationError, UserInputError } from 'apollo-server-express';
+import { GraphQLError, GraphQLFormattedError } from 'graphql';
+import { ArgumentValidationError } from 'type-graphql';
+import _ from 'underscore';
 
-type StatusCode = 'INTERNAL_SERVER_ERROR' | 'USER_INPUT_ERROR';
-type FormatError = (error: GraphQLFormattedError) => GraphQLFormattedError<Record<string, any>>;
+type ResponseError = GraphQLFormattedError<Record<string, any>>;
+type InputErrors = { [name: string]: string[] }[];
 
 export const Errors = {
   duplicate: '{PATH} already exist.',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getStatusCode = (ext: any): StatusCode => {
-  return ext.exception?.errors || ext.exception.validationErrors ? 'USER_INPUT_ERROR' : ext.code;
-};
+export const formatError = (error: GraphQLError): ResponseError => {
+  if (error.originalError instanceof ArgumentValidationError) {
+    const { validationErrors } = error.originalError;
+    const errors: InputErrors = [];
+    validationErrors.map((err) => {
+      errors.push({
+        [err.property]: Object.values(err.constraints || {}),
+      });
+    });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const formatError: FormatError = (error) => {
-  // const { extensions } = error;
-  // const res = { errors: [], code: getStatusCode(extensions) };
+    return new UserInputError('Invalid Inputs', { errors });
+  }
 
-  // if (res.code !== 'INTERNAL_SERVER_ERROR') {
-  //   const extErrorsObj = extensions.exception?.errors || {};
-  //   Object.keys(extErrorsObj).map((errKey) => {
-  //     res.errors.push({
-  //       key: extErrorsObj[errKey].path,
-  //       message: extErrorsObj[errKey].message,
-  //       value: extErrorsObj[errKey].value,
-  //     });
-  //   });
+  if (error.originalError instanceof AuthenticationError) {
+    return _.pick(error.originalError, 'message', 'extensions');
+  }
 
-  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //   extensions.exception?.validationErrors?.map((err: any) => {
-  //     res.errors.push({
-  //       key: err.property,
-  //       message: Object.values<string>(err.constraints)[0],
-  //       value: err.value,
-  //     });
-  //   });
-  // }
-
-  // if (process.env.NODE_ENV !== 'production') {
-  //   res.stack = error;
-  // }
-
-  return error;
+  return new ApolloError('Internal Server Error', 'INTERNAL_SERVER_ERROR');
 };
