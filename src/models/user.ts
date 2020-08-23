@@ -4,7 +4,7 @@ import uniqueValidator from 'mongoose-unique-validator';
 
 import { Device } from './device';
 import { Errors } from '../errors';
-'complete user registration';
+
 @ObjectType({ description: 'User model' })
 @plugin(uniqueValidator, { message: Errors.duplicate })
 @modelOptions({ schemaOptions: { timestamps: true } })
@@ -34,7 +34,7 @@ export class User {
   password!: string;
 
   @Field(() => [Device])
-  @prop({ ref: Device })
+  @prop({ ref: Device, default: [] })
   devices?: Ref<Device>[];
 
   @Field()
