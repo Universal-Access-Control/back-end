@@ -1,6 +1,5 @@
 import { InputType, Field } from 'type-graphql';
-import { Length, MaxLength, IsMongoId } from 'class-validator';
-import { ObjectId } from 'mongodb';
+import { IsMongoId, Length, MaxLength } from 'class-validator';
 
 @InputType()
 export class DeviceInput {
@@ -8,11 +7,18 @@ export class DeviceInput {
   @MaxLength(30)
   deviceId!: string;
 
-  @Field({ nullable: true })
+  @Field()
   @Length(1, 20)
-  name?: string;
+  name!: string;
+}
 
-  @Field(() => String)
+@InputType()
+export class UpdateDeviceInput {
+  @Field()
   @IsMongoId()
-  userId!: ObjectId;
+  id!: string;
+
+  @Field()
+  @Length(1, 20)
+  name!: string;
 }
