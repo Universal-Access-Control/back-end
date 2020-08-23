@@ -5,8 +5,7 @@ import _ from 'underscore';
 import { CreateUserInput, UpdateUserInput, LoginInput } from '../types/user-types';
 import { User, UserModel } from '../../models/user';
 import { MyContext } from '../../@types/access-control';
-import { isAuth } from '../middlewares/isAuth';
-import { UserInputError } from 'apollo-server-express';
+import { isAuth } from '../middleware/isAuth';
 
 @Resolver()
 export class UserResolver {
@@ -21,7 +20,7 @@ export class UserResolver {
   }
 
   @Query(() => Boolean)
-  async checkAuth(@Ctx() ctx: MyContext): Promise<Boolean> {
+  async checkAuth(@Ctx() ctx: MyContext): Promise<boolean> {
     const { userId } = ctx.req.session!;
     return !!userId;
   }
@@ -70,7 +69,7 @@ export class UserResolver {
 
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
-  async logout(@Ctx() ctx: MyContext): Promise<Boolean> {
+  async logout(@Ctx() ctx: MyContext): Promise<boolean> {
     return new Promise((resolve, reject) => {
       ctx.req.session!.destroy((err) => {
         if (err) {

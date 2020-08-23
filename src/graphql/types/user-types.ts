@@ -1,4 +1,4 @@
-import { InputType, Field, ObjectType } from 'type-graphql';
+import { InputType, Field } from 'type-graphql';
 import { Length, IsEmail, IsString, Matches, IsMongoId, IsOptional, MaxLength } from 'class-validator';
 import { IsUserAlreadyExist } from '../validators/user-already-exist';
 
